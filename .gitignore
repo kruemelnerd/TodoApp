@@ -2,16 +2,7 @@
 ### Ansible template
 *.retry
 
-### Vue template
-# gitignore template for Vue.js projects
-#
-# Recommended template: Node.gitignore
 
-# TODO: where does this rule come from?
-docs/_book
-
-# TODO: where does this rule come from?
-test/
 
 ### CVS template
 /CVS/*
@@ -222,3 +213,5 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+.idea/vcs.xml
+src/main/
