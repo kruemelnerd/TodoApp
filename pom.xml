@@ -16,8 +16,12 @@
     </parent>
 
     <modules>
+        <module>frontend</module>
         <module>backend</module>
     </modules>
     <packaging>pom</packaging>
+
+
+
 
 </project>

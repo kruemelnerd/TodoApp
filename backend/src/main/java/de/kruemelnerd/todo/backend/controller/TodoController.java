@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -16,8 +18,13 @@ public class TodoController {
     @Autowired
     TodoService todoService;
 
-    @GetMapping("getAllTodos")
-    ResponseEntity<List<Todo>> getAllTodos(){
+    @GetMapping("todo")
+    ResponseEntity<List<Todo>> getAllTodos() {
         return new ResponseEntity<>(todoService.getAllTodos(), HttpStatus.OK);
+    }
+
+    @PostMapping("todo")
+    ResponseEntity<Todo> saveNewTodo(@RequestBody Todo todo) {
+        return new ResponseEntity<>(todoService.saveTodo(todo), HttpStatus.CREATED);
     }
 }

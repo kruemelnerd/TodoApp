@@ -31,14 +31,14 @@ class TestTodoControllerIT {
 
     @Test
     void getAllTodosFromController() throws Exception {
-        List<Todo> allTodo = new ArrayList<Todo>();
+        List<Todo> allTodo = new ArrayList<>();
         allTodo.add(new Todo("Descriptiontext 1"));
         allTodo.add(new Todo("Descriptiontext 2"));
 
 
         Mockito.when(todoService.getAllTodos()).thenReturn(allTodo);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/getAllTodos").contentType(MediaType.APPLICATION_JSON)) //
+        mockMvc.perform(MockMvcRequestBuilders.get("/todo").contentType(MediaType.APPLICATION_JSON)) //
                 .andExpect(jsonPath("$", hasSize(2))) //
                 .andDo(print());
 

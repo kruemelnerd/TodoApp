@@ -1,13 +1,28 @@
 package de.kruemelnerd.todo.backend.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class Todo {
+    @Id
+    @GeneratedValue
+    long id;
+    private String title;
+    private String description;
 
-    String title;
-    String desciption;
+    public Todo(){ }
+
 
     public Todo(String description) {
-        this.desciption = description;
+        this.description = description;
+    }
+
+
+    public Todo(String title, String description) {
+        this.title = title;
+        this.description = description;
     }
 
     public String getTitle() {
@@ -18,11 +33,11 @@ public class Todo {
         this.title = title;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

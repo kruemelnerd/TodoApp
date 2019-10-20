@@ -3,6 +3,7 @@ package de.kruemelnerd.todo.backend.controller;
 import de.kruemelnerd.todo.backend.controller.TodoController;
 import de.kruemelnerd.todo.backend.domain.Todo;
 import de.kruemelnerd.todo.backend.repository.TodoService;
+import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,14 +11,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.http.ContentType.JSON;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsIterableContaining.hasItems;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.when;
 
-public class TestTodoController {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class TestTodoController {
 
     @Mock
     TodoService todoService;
@@ -34,27 +42,39 @@ public class TestTodoController {
 
     @Test
     void getAllTodosFromController() {
-        List<Todo> allTodo = new ArrayList<Todo>();
+        List<Todo> allTodo = new ArrayList<>();
         allTodo.add(new Todo("Descriptiontext 1"));
         allTodo.add(new Todo("Descriptiontext 2"));
 
 
-        Mockito.when(todoService.getAllTodos()).thenReturn(allTodo);
+        when(todoService.getAllTodos()).thenReturn(allTodo);
 
         RestAssuredMockMvc.given()
                 .when()
-                .get("/getAllTodos")
+                .get("todo")
                 .then()
-                .log().ifValidationFails()
                 .statusCode(HttpStatus.OK.value())
-                .contentType(JSON);
+                .contentType(JSON)
+                .body("description", hasItems("Descriptiontext 1", "Descriptiontext 2"))
+                .log().ifValidationFails();
+    }
 
-/*        RestAssuredMockMvc.given()
-                .when()
-                .get("/getAllTodos")
+    @Test
+    void saveANewTodo() {
+        Todo newTodo = new Todo("Testtitle", "Testdescription");
+
+        when(todoService.saveTodo(any(Todo.class))).thenReturn(newTodo);
+
+        RestAssuredMockMvc.given()
+                .contentType(JSON)
+                .body(newTodo)
+                .post("todo")
                 .then()
-                .statusCode(HttpStatus.OK.value());
-//                .body(hasSize(2));
-*/
+                .statusCode(HttpStatus.CREATED.value())
+                .contentType(JSON)
+                .body("description", is("Testdescription"))
+                .body("title", is("Testtitle"))
+                .log().ifValidationFails();
+
     }
 }
