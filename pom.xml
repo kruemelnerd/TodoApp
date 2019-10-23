@@ -20,8 +20,4 @@
         <module>backend</module>
     </modules>
     <packaging>pom</packaging>
-
-
-
-
 </project>
