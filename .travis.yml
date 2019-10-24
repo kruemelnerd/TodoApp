@@ -3,6 +3,14 @@ language: java
 jdk:
 - openjdk8
 
+install: true
+script: ./mvnw clean install
+
+
 cache:
   directories:
   - node_modules
+  - $HOME/.m2
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
