@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/kruemelnerd/TodoApp.svg?branch=master)](https://travis-ci.org/kruemelnerd/TodoApp)
+[![codecov](https://codecov.io/gh/kruemelnerd/TodoApp/branch/master/graph/badge.svg)](https://codecov.io/gh/kruemelnerd/TodoApp)
+
+
 
 # ToDo-App :books::heavy_check_mark:
 A simple Application to learn more about Test-Driven Development and Frontend-Frameworks (vue.js).
