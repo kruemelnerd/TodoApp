@@ -5,11 +5,18 @@
 
     <button @click="showAllTodos()">Show all Todos</button>
 
-    <h4>Alle Todos: {{ response }}</h4>
+    <h4>Alle Todos:</h4>
+    <ul>
+      Test
+      <li v-for="item in response" v-bind:key="item.id">
+        {{ item.description }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>import axios from 'axios'
+
 export default {
   name: 'service',
   data () {
@@ -19,7 +26,6 @@ export default {
       erros: []
     }
   },
-
   methods: {
     showAllTodos () {
       axios.get('todo')
