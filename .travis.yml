@@ -4,7 +4,7 @@ jdk:
 - openjdk8
 
 install: true
-script: mvn clean verify test install
+script: mvn clean install
 
 
 cache:
