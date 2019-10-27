@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class TestTodoController {
+class TodoControllerTest {
 
     @Mock
     TodoService todoService;

@@ -15,7 +15,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <junit-platform.version>5.5.2</junit-platform.version>
     </properties>
 
     <dependencies>
@@ -47,9 +51,16 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.5.2</version>
+            <version>${junit-platform.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
@@ -92,9 +103,17 @@
 
     <build>
         <plugins>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>-->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -121,25 +140,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-	         <groupId>org.jacoco</groupId>
-                           <artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.8.2</version>
-			<executions>
-			         <execution>
-				         <goals>
-					         <goal>prepare-agent</goal>
-					</goals>
-				</execution>
-			         <execution>
-			                  <id>report</id>
-			                  <phase>test</phase>
-			                  <goals>
-         			                  <goal>report</goal>
-	         		         </goals>
-		                  </execution>
-		         </executions>
-                  </plugin>
         </plugins>
     </build>
 
