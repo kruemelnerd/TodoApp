@@ -13,6 +13,7 @@ frontend/test/e2e/reports
 frontend/test/unit/coverage
 frontend/yarn-error.log
 frontend/yarn.lock
+**/package-lock.json
 security/target/
 selenium-debug.log
 
