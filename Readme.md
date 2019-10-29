@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/kruemelnerd/TodoApp.svg?branch=master)](https://travis-ci.org/kruemelnerd/TodoApp)
+[![Build Status](https://travis-ci.org/kruemelnerd/TodoApp.svg?branch=master)](https://travis-ci.org/kruemelnerd/TodoApp) [![codecov](https://codecov.io/gh/kruemelnerd/TodoApp/branch/master/graph/badge.svg)](https://codecov.io/gh/kruemelnerd/TodoApp)
+
+
 
 
 
