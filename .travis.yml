@@ -1,26 +1,18 @@
 language: java
-
 jdk:
 - openjdk11
-
 install: true
 script: mvn clean install
-
-
 cache:
   directories:
   - node_modules
-  - $HOME/.m2
-
+  - "$HOME/.m2"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-
 deploy:
   provider: heroku
   api_key:
-    secure: "c7CvLVuJQvysXtiqQmrVGvOIro3uDD/xDBne2Zx4z37w6oY2A/sWIjHQZRjVYUfA/tFX2zF93o8M2Hp+fEXL892NL4zkRVECB6TpimqieFl4yRGLNiNpDxa+zb26KwC3i6uF3IfJxVOoMKoUjOvdbvOicIxHXtTXqYZOLhaoO4zAs7rNg1gvpPbzTbvpjpOg/Ec3CFOZoDyOCBCKLSJrBoHvEb6zgtC1h+LjzUUeccng6vECJrVvD83KtMqtMX9yU5vKEvSUm3dedqfMwZ87tmdT3FzaffBQ/4bElT/qOk2DePZLMLFgv0j+eXHqW+3gSwlOhufnHBl2vE22kjOzVW0ggXyVbs3rirulCMg55Y1VAAfOusCXnlrepgpFYihuBONSwhcasxbrkGFTvCrTmF9ajYES2j1jVEjQjh8rl5BXalFAGbTLivrpVEms33nQluXA2ApSWDzb/0uRAnDww8f7Nfeo8sa+zKvXMnFAyX/FT8TGSwK5VbT2baUdFYAbX0BEYgIgxpVJ2XdzZOim79sYGWEmBKj3V4Rzqv5cwPWMKOG+5V4kDF+HsTQ/g2MjZxmj4B+mIGzLEUC6CqF73yWH72wAEqklVEDbzjhAhNvVkkvK3zoVOs/CiOexjjKgp9Ouu4CCuTYAhIbdNCsyresZfVDUp1fJnP1+1Oo9KLk="
+    secure: Fs8jx5SDudpt9eIec9S3LOjeR7hxWQeRAzrH13RhB6A2qUrNmilDN2JzvX91KrzFMBAMYhoCn4mmYGSug6YAWPO7hpvtawbqEOnJRkLdSc6o1dBKp1Y+HShvTZ3CVNbzvIwdI1KdZtgHRimKwcSJhTWUghCIVCiwTYUUCmrDkx+6eylylJpD4FR+E6WEZ6mQMa0j+OPGHvsKBpLp9TEkYcvXiwrQG2AZIiLMuZmMhlhaIhxVNKAcLmnevCYt71H5wTpvvf/qA7J83Ks2YapWWbzZQQMJolmr+fkYk3G8ZK60zjOkj4QpCxo+ohNFOT+tisYFTxswYHfEGciAdw0mxZkpo+HzRv97K3EPVHeMIGKr99Cwek9LiMyyTSGWfG9Rmcw+RV9ADFyXKfzSrWO8fBqBPaWDwDRGCCiIX7+aubYXgNCuLlJ0n5oPEPp+qnh6UJSjj5wj7FCvSlT/8PLcstgxeQmbM4ewn7PfmGbFe3JZ87h2PNjVCrEQkD3Wj89qR8E4AWKZVBgTWVfIc+uHGYfzulzwLb1QveHbf7s5+LoTfm1TG4u27uoT9YdnjZ/msqg4pyF6gbJ1yOi0I0g4jx3gtLxKbiuDCCbRtrEMHnGNfNvv/iH+qRB5gj55B3sRMh+yY8uDu3rsPJKQTr116IZnXRzMUYuiLnPMkxswpds=
   app: todo-kruemelnerd
   on:
     repo: kruemelnerd/TodoApp
-
-
