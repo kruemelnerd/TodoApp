@@ -8,12 +8,19 @@
     <button @click="showAllTodos()">Show all Todos</button>
 
     <h4>Alle Todos:</h4>
-    <ul>
-      Test
-      <li v-for="item in response" v-bind:key="item.id">
-        {{ item.description }}
-      </li>
-    </ul>
+
+    <b-list-group>
+      <b-list-group-item button v-for="item in response" v-bind:key="item.id">
+        <div class="d-flex w-100">
+          <b-form-checkbox class="mr-n2">
+            <span class="sr-only">Checkbox for following text input</span>
+          </b-form-checkbox>
+          <div class="todoItemDescription">
+            {{ item.description }}
+          </div>
+        </div>
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
@@ -45,3 +52,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .todoItemDescription{
+    padding-left: 5px;
+  }
+</style>
