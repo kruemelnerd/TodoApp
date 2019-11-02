@@ -1,5 +1,5 @@
 <template>
-  <div class="service">
+  <div class="overview">
     <h1>{{ message }}</h1>
     <h2>Dies ist ein kleiner Test</h2>
 
@@ -22,7 +22,7 @@ import axios from 'axios'
 import TodoInput from './TodoInput'
 
 export default {
-  name: 'service',
+  name: 'overview',
   components: {TodoInput},
   data () {
     return {
