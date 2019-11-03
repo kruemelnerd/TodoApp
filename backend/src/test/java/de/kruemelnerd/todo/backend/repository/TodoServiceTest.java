@@ -45,9 +45,9 @@ class TodoServiceTest {
     @Test
     void getAllTests(){
         List<Todo> allTodos = new ArrayList<>();
-        allTodos.add(new Todo("title1", "description1"));
-        allTodos.add(new Todo("title2", "description2"));
-        allTodos.add(new Todo("title3", "description3"));
+        allTodos.add(new Todo("title1", "description1", true));
+        allTodos.add(new Todo("title2", "description2", false));
+        allTodos.add(new Todo("title3", "description3", true));
 
         when(todoRepository.findAll()).thenReturn(allTodos);
 
@@ -56,10 +56,14 @@ class TodoServiceTest {
         assertThat(allTodosFromService.get(0).getTitle(), is("title1"));
         assertThat(allTodosFromService.get(1).getTitle(), is("title2"));
         assertThat(allTodosFromService.get(2).getTitle(), is("title3"));
+
         assertThat(allTodosFromService.get(0).getDescription(), is("description1"));
         assertThat(allTodosFromService.get(1).getDescription(), is("description2"));
         assertThat(allTodosFromService.get(2).getDescription(), is("description3"));
 
+        assertThat(allTodosFromService.get(0).getDone(), is(true));
+        assertThat(allTodosFromService.get(1).getDone(), is(false));
+        assertThat(allTodosFromService.get(2).getDone(), is(true));
 
     }
 }

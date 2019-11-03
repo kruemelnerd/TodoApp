@@ -61,7 +61,7 @@ class TodoControllerTest {
 
     @Test
     void saveANewTodo() {
-        Todo newTodo = new Todo("Testtitle", "Testdescription");
+        Todo newTodo = new Todo("Testtitle", "Testdescription", true);
 
         when(todoService.saveTodo(any(Todo.class))).thenReturn(newTodo);
 
@@ -74,6 +74,7 @@ class TodoControllerTest {
                 .contentType(JSON)
                 .body("description", is("Testdescription"))
                 .body("title", is("Testtitle"))
+                .body("done", is(true))
                 .log().ifValidationFails();
 
     }

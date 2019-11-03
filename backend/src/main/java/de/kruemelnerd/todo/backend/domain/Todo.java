@@ -11,8 +11,10 @@ public class Todo {
     long id;
     private String title;
     private String description;
+    private Boolean done;
 
-    public Todo(){ }
+    public Todo() {
+    }
 
 
     public Todo(String description) {
@@ -20,9 +22,10 @@ public class Todo {
     }
 
 
-    public Todo(String title, String description) {
+    public Todo(String title, String description, Boolean done) {
         this.title = title;
         this.description = description;
+        this.done = done;
     }
 
     public String getTitle() {
@@ -39,5 +42,13 @@ public class Todo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getDone() {
+        return done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
     }
 }
