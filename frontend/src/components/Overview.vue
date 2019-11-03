@@ -1,7 +1,7 @@
 <template>
   <div class="overview">
-    <h1>{{ message }}</h1>
-    <h2>Dies ist ein kleiner Test</h2>
+    <h1>ToDo App</h1>
+    <h2>Just another learning app</h2>
 
     <p><TodoInput></TodoInput></p>
 
@@ -10,9 +10,9 @@
     <h4>Alle Todos:</h4>
 
     <b-list-group>
-      <b-list-group-item button v-for="item in response" v-bind:key="item.id">
+      <b-list-group-item button v-for="item in response" v-bind:key="item.id" v-bind:class="{'itemDone': item.done === true}">
         <div class="d-flex w-100">
-          <b-form-checkbox class="mr-n2">
+          <b-form-checkbox v-model="item.done" class="mr-n2">
             <span class="sr-only">Checkbox for following text input</span>
           </b-form-checkbox>
           <div class="todoItemDescription">
@@ -56,5 +56,8 @@ export default {
 <style>
   .todoItemDescription{
     padding-left: 5px;
+  }
+  .itemDone{
+    text-decoration: line-through !important;
   }
 </style>

@@ -25,7 +25,8 @@ export default {
     return {
       todo: {
         title: '',
-        description: ''
+        description: '',
+        done: false
       },
       showSuccess: false,
       showErrors: false,
@@ -44,7 +45,8 @@ export default {
       if (desc && desc !== "") {
         axios.post('todo', {
             title: this.todo.title.trim(),
-            description: desc
+            description: desc,
+            done: false
         })
             .then(response => {
               this.showSuccess = true
