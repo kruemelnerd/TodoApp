@@ -10,7 +10,7 @@
     <h4>Alle Todos:</h4>
 
     <b-list-group>
-      <b-list-group-item button v-for="item in response" v-bind:key="item.id" v-bind:class="{'itemDone': item.done === true}">
+      <b-list-group-item button v-for="item in reverseItems" v-bind:key="item.id" v-bind:class="{'itemDone': item.done === true}">
         <div class="d-flex w-100">
           <b-form-checkbox v-model="item.done" class="mr-n2">
             <span class="sr-only">Checkbox for following text input</span>
@@ -36,6 +36,11 @@ export default {
       message: 'Some Message from the backend',
       response: [],
       erros: []
+    }
+  },
+  computed: {
+    reverseItems () {
+      return this.response.slice().reverse()
     }
   },
   methods: {
