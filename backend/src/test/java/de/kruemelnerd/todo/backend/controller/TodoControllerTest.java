@@ -1,15 +1,12 @@
 package de.kruemelnerd.todo.backend.controller;
 
-import de.kruemelnerd.todo.backend.controller.TodoController;
 import de.kruemelnerd.todo.backend.domain.Todo;
 import de.kruemelnerd.todo.backend.repository.TodoService;
-import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -21,7 +18,7 @@ import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsIterableContaining.hasItems;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -76,6 +73,31 @@ class TodoControllerTest {
                 .body("title", is("Testtitle"))
                 .body("done", is(true))
                 .log().ifValidationFails();
+    }
 
+    @Test
+    void finishAOldTodo(){
+        long id = 4;
+        Todo oldTodo = mock(Todo.class);
+        oldTodo.setTitle("Neuer Title");
+        oldTodo.setDescription("Neu Beschreibung");
+        oldTodo.setDone(false);
+        when(oldTodo.getId()).thenReturn(id);
+        when(todoService.getTodo(id)).thenReturn(oldTodo);
+
+        Todo newTodo = new Todo(oldTodo.getTitle(), oldTodo.getDescription(), true);
+        when(todoService.toogleTodoEntry(id)).thenReturn(newTodo);
+
+        RestAssuredMockMvc.given()
+                .contentType(JSON)
+                .body(id)
+                .put("toogleTodo")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .contentType(JSON)
+                .body("description", is(newTodo.getDescription()))
+                .body("title", is(newTodo.getTitle()))
+                .body("done", is(newTodo.getDone()))
+                .log().ifValidationFails();
     }
 }

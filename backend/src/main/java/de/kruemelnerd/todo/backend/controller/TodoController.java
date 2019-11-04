@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -26,5 +27,10 @@ public class TodoController {
     @PostMapping("todo")
     ResponseEntity<Todo> saveNewTodo(@RequestBody Todo todo) {
         return new ResponseEntity<>(todoService.saveTodo(todo), HttpStatus.CREATED);
+    }
+
+    @PutMapping("toogleTodo")
+    ResponseEntity<Todo> toogleMap(@RequestBody long id){
+        return new ResponseEntity<>(todoService.toogleTodoEntry(id), HttpStatus.OK);
     }
 }

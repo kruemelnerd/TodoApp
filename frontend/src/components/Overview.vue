@@ -7,12 +7,10 @@
 
     <button @click="showAllTodos()">Show all Todos</button>
 
-    <h4>Alle Todos:</h4>
-
     <b-list-group>
-      <b-list-group-item button v-for="item in reverseItems" v-bind:key="item.id" v-bind:class="{'itemDone': item.done === true}">
+      <b-list-group-item button v-for="item in reverseItems" v-bind:key="item.id" v-bind:class="{'itemDone': item.done}" @click="handleChange(item)">
         <div class="d-flex w-100">
-          <b-form-checkbox v-model="item.done" class="mr-n2">
+          <b-form-checkbox v-model="item.done" class="mr-n2" >
             <span class="sr-only">Checkbox for following text input</span>
           </b-form-checkbox>
           <div class="todoItemDescription">
@@ -25,10 +23,10 @@
 </template>
 
 <script>
-import axios from 'axios'
-import TodoInput from './TodoInput'
+    import axios from 'axios'
+    import TodoInput from './TodoInput'
 
-export default {
+    export default {
   name: 'overview',
   components: {TodoInput},
   data () {
@@ -44,6 +42,18 @@ export default {
     }
   },
   methods: {
+    handleChange (e) {
+      var id = e.id
+
+      axios.put('toogleTodo', id )
+        .then(response => {
+            console.log(response)
+          //item.done = response.data.done
+        })
+        .erros(e => {
+          this.erros.push(e)
+        })
+    },
     showAllTodos () {
       axios.get('todo')
         .then(response => {

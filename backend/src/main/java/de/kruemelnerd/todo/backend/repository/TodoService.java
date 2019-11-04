@@ -1,7 +1,6 @@
 package de.kruemelnerd.todo.backend.repository;
 
 import de.kruemelnerd.todo.backend.domain.Todo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +19,16 @@ public class TodoService {
     }
 
     public Todo saveTodo(Todo todo){
+        return todoRepository.save(todo);
+    }
+
+    public Todo getTodo(long id) {
+        return todoRepository.getOne(id);
+    }
+
+    public Todo toogleTodoEntry(long id) {
+        Todo todo = todoRepository.getOne(id);
+        todo.setDone(!todo.getDone());
         return todoRepository.save(todo);
     }
 }

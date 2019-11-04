@@ -1,10 +1,10 @@
 <template>
 <div class="form-group">
   <div class="row">
-    <div class="col-10">
+    <div class="col-xl-10">
      <input id="descriptionInput" v-model.lazy="todo.description" type="text" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1" @keydown.enter="submitTodo" @focus="clearFieldsForNewTodo">
     </div>
-    <div class="col-2">
+    <div class="col-xl-2">
       <button class="btn btn-primary" @click.prevent="submitTodo">Submit new Todo</button>
     </div>
   </div>
@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+    import axios from 'axios'
 
-export default {
+    export default {
   /* eslint-disable */
   data: function () {
     return {

@@ -64,6 +64,35 @@ class TodoServiceTest {
         assertThat(allTodosFromService.get(0).getDone(), is(true));
         assertThat(allTodosFromService.get(1).getDone(), is(false));
         assertThat(allTodosFromService.get(2).getDone(), is(true));
+    }
 
+    @Test
+    void finishOpenTodo(){
+        long id = 4;
+        Todo oldTodo = new Todo("title", "description", false);
+        oldTodo.setId(id);
+        Todo newTodo = new Todo(oldTodo.getTitle(), oldTodo.getDescription(), true);
+        newTodo.setId(id);
+
+        when(todoRepository.getOne(id)).thenReturn(oldTodo);
+        when(todoRepository.save(oldTodo)).thenReturn(oldTodo);
+
+        Todo actualTodo = todoService.toogleTodoEntry(id);
+        assertThat(actualTodo, is(newTodo));
+    }
+
+    @Test
+    void finishClosedTodo(){
+        long id = 4;
+        Todo oldTodo = new Todo("title", "description", true);
+        oldTodo.setId(id);
+        Todo newTodo = new Todo(oldTodo.getTitle(), oldTodo.getDescription(), false);
+        newTodo.setId(id);
+
+        when(todoRepository.getOne(id)).thenReturn(oldTodo);
+        when(todoRepository.save(oldTodo)).thenReturn(oldTodo);
+
+        Todo actualTodo = todoService.toogleTodoEntry(id);
+        assertThat(actualTodo, is(newTodo));
     }
 }
