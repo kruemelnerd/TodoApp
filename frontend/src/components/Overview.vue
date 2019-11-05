@@ -8,11 +8,11 @@
     <button @click="showAllTodos()">Show all Todos</button>
 
     <b-list-group>
-      <b-list-group-item button v-for="item in reverseItems" v-bind:key="item.id" v-bind:class="{'itemDone': item.done}" @click="handleChange(item)">
+      <b-list-group-item button v-for="item in reverseItems" v-bind:key="renderItemlist" v-bind:class="{'itemDone': item.done}" @click="handleChange(item)">
         <div class="d-flex w-100">
-          <b-form-checkbox v-model="item.done" class="mr-n2" >
+<!--          <b-form-checkbox v-model="item.done" class="mr-n2" >
             <span class="sr-only">Checkbox for following text input</span>
-          </b-form-checkbox>
+          </b-form-checkbox> -->
           <div class="todoItemDescription">
             {{ item.description }}
           </div>
@@ -33,7 +33,8 @@
     return {
       message: 'Some Message from the backend',
       response: [],
-      erros: []
+      erros: [],
+      renderItemlist: 0
     }
   },
   computed: {
@@ -43,14 +44,20 @@
   },
   methods: {
     handleChange (e) {
-      var id = e.id
-
-      axios.put('toogleTodo', id )
+      let axiosConfig = {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+      }
+      axios.put('toogleTodo', e.id, axiosConfig)
         .then(response => {
-            console.log(response)
-          //item.done = response.data.done
+          // console.log('Done :) ' + response.data.done)
+          // var changedTodo = this.response.find(todo => todo.id === e.id)
+          // changedTodo.done(!changedTodo.done())
+          // this.renderItemlist += 1
+          this.showAllTodos() // FIXME: Toggle only one Element in the loop. But how?
         })
-        .erros(e => {
+        .catch(e => {
           this.erros.push(e)
         })
     },
