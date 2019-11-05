@@ -8,7 +8,7 @@
     <button @click="showAllTodos()">Show all Todos</button>
 
     <b-list-group>
-      <b-list-group-item button v-for="item in reverseItems" v-bind:key="renderItemlist" v-bind:class="{'itemDone': item.done}" @click="handleChange(item)">
+      <b-list-group-item button v-for="item in reverseItems" v-bind:key="item.id" v-bind:class="{'itemDone': item.done}" @click="handleChange(item)">
         <div class="d-flex w-100">
 <!--          <b-form-checkbox v-model="item.done" class="mr-n2" >
             <span class="sr-only">Checkbox for following text input</span>
@@ -33,8 +33,7 @@
     return {
       message: 'Some Message from the backend',
       response: [],
-      erros: [],
-      renderItemlist: 0
+      erros: []
     }
   },
   computed: {
@@ -51,11 +50,7 @@
       }
       axios.put('toogleTodo', e.id, axiosConfig)
         .then(response => {
-          // console.log('Done :) ' + response.data.done)
-          // var changedTodo = this.response.find(todo => todo.id === e.id)
-          // changedTodo.done(!changedTodo.done())
-          // this.renderItemlist += 1
-          this.showAllTodos() // FIXME: Toggle only one Element in the loop. But how?
+          e.done = response.data.done
         })
         .catch(e => {
           this.erros.push(e)
