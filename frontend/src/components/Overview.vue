@@ -3,16 +3,16 @@
     <h1>ToDo App</h1>
     <h2>Just another learning app</h2>
 
-    <p><TodoInput></TodoInput></p>
+    <p>
+      <TodoInput></TodoInput>
+    </p>
 
     <button @click="showAllTodos()">Show all Todos</button>
 
-    <h4>Alle Todos:</h4>
-
     <b-list-group>
-      <b-list-group-item button v-for="item in reverseItems" v-bind:key="item.id" v-bind:class="{'itemDone': item.done === true}">
+      <b-list-group-item href="#" v-for="item in reverseItems" v-bind:key="item.id" v-bind:class="{'itemDone': item.done}" @click="handleChange(item)">
         <div class="d-flex w-100">
-          <b-form-checkbox v-model="item.done" class="mr-n2">
+          <b-form-checkbox v-model="item.done" class="mr-n2" >
             <span class="sr-only">Checkbox for following text input</span>
           </b-form-checkbox>
           <div class="todoItemDescription">
@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import axios from 'axios'
-import TodoInput from './TodoInput'
+    import axios from 'axios'
+    import TodoInput from './TodoInput'
 
-export default {
+    export default {
   name: 'overview',
   components: {TodoInput},
   data () {
@@ -44,6 +44,20 @@ export default {
     }
   },
   methods: {
+    handleChange (e) {
+      let axiosConfig = {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+      }
+      axios.put('toogleTodo', e.id, axiosConfig)
+        .then(response => {
+          e.done = response.data.done
+        })
+        .catch(e => {
+          this.erros.push(e)
+        })
+    },
     showAllTodos () {
       axios.get('todo')
         .then(response => {
