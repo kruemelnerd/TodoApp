@@ -12,8 +12,8 @@ There are a few things I want to achieve with this project:
 
 - [x] Have a working Backend with Spring Boot :heavy_check_mark:
 - [x] Display data from the Backend in a up-to-date-Frontend (vuejs) :heavy_check_mark:
-- [ ] Display it in a nice way ;)
-- [ ] Build a working Todo-App! :gem:
+- [x] Display it in a nice way ;) :heavy_check_mark:
+- [x] Build a working Todo-App! :gem: :heavy_check_mark: YEAH
 - [x] Implement a CI-Pipeline with Travis-CI :heavy_check_mark:
 - [x] Deploy App to Heroku or some other server
 - [ ] Check out Testcontainer and bring up some integration-test
