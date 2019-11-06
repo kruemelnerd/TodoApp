@@ -18,7 +18,6 @@ import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsIterableContaining.hasItems;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -78,14 +77,7 @@ class TodoControllerTest {
     @Test
     void finishAOldTodo(){
         long id = 4;
-        Todo oldTodo = mock(Todo.class);
-        oldTodo.setTitle("Neuer Title");
-        oldTodo.setDescription("Neu Beschreibung");
-        oldTodo.setDone(false);
-        when(oldTodo.getId()).thenReturn(id);
-        when(todoService.getTodo(id)).thenReturn(oldTodo);
-
-        Todo newTodo = new Todo(oldTodo.getTitle(), oldTodo.getDescription(), true);
+        Todo newTodo = new Todo("Neuer Title", "Neu Beschreibung", true);
         when(todoService.toogleTodoEntry(id)).thenReturn(newTodo);
 
         RestAssuredMockMvc.given()
@@ -100,4 +92,5 @@ class TodoControllerTest {
                 .body("done", is(newTodo.getDone()))
                 .log().ifValidationFails();
     }
+
 }

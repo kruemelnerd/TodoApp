@@ -22,10 +22,6 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public Todo getTodo(long id) {
-        return todoRepository.getOne(id);
-    }
-
     public Todo toogleTodoEntry(long id) {
         Todo todo = todoRepository.getOne(id);
         todo.setDone(!todo.getDone());
