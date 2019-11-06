@@ -4,10 +4,8 @@
     <h2>Just another learning app</h2>
 
     <p>
-      <TodoInput></TodoInput>
+      <TodoInput v-on:create-new-todo="createNewTodo"></TodoInput>
     </p>
-
-    <button @click="showAllTodos()">Show all Todos</button>
 
     <b-list-group>
       <b-list-group-item href="#" v-for="item in reverseItems" v-bind:key="item.id" v-bind:class="{'itemDone': item.done}" @click="handleChange(item)">
@@ -25,6 +23,7 @@
 </template>
 
 <script>
+    /* eslint-disable */
     import axios from 'axios'
     import TodoInput from './TodoInput'
 
@@ -67,8 +66,15 @@
         .catch(e => {
           this.erros.push(e)
         })
+    },
+    createNewTodo (todo) {
+      this.response.push(todo)
     }
+  },
+  created () {
+    this.showAllTodos()
   }
+
 }
 </script>
 

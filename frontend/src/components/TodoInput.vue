@@ -17,10 +17,10 @@
 </template>
 
 <script>
+    /* eslint-disable */
     import axios from 'axios'
 
     export default {
-  /* eslint-disable */
   data: function () {
     return {
       todo: {
@@ -41,7 +41,7 @@
       this.errors = []
     },
     submitTodo () {
-      var desc = this.todo.description.trim()
+      const desc = this.todo.description.trim()
       if (desc && desc !== "") {
         axios.post('todo', {
             title: this.todo.title.trim(),
@@ -50,6 +50,7 @@
         })
             .then(response => {
               this.showSuccess = true
+              this.$emit('create-new-todo', response.data)
             })
             .catch(e => {
                 this.showErrors = true
