@@ -3,18 +3,22 @@ package de.kruemelnerd.todo.backend.controller;
 import de.kruemelnerd.todo.backend.domain.Todo;
 import de.kruemelnerd.todo.backend.repository.TodoService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.http.ContentType.JSON;
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsIterableContaining.hasItems;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,17 +27,43 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TodoControllerTest {
 
-    @Mock
+    @MockBean
     TodoService todoService;
 
-    @InjectMocks
-    TodoController todoController;
-
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
     @BeforeEach
     void init() {
         MockitoAnnotations.initMocks(this);
-        RestAssuredMockMvc.standaloneSetup(todoController);
+        RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        RestAssuredMockMvc.reset();
+    }
+
+
+    @Test
+    void secured_api_should_react_with_default(){
+    given()
+    .when()
+    .get("/todo/")
+    .then()
+            .statusCode(HttpStatus.UNAUTHORIZED.value());
+    }
+
+    @Test
+    public void secured_api_should_give_http_200_when_authorized() {
+
+        given()
+                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar"))
+                .when()
+                .get("/todo/")
+                .then()
+                .statusCode(HttpStatus.OK.value());
+
     }
 
     @Test
@@ -45,7 +75,8 @@ class TodoControllerTest {
 
         when(todoService.getAllTodos()).thenReturn(allTodo);
 
-        RestAssuredMockMvc.given()
+        given()
+                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar"))
                 .when()
                 .get("todo")
                 .then()
@@ -61,7 +92,8 @@ class TodoControllerTest {
 
         when(todoService.saveTodo(any(Todo.class))).thenReturn(newTodo);
 
-        RestAssuredMockMvc.given()
+        given()
+                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar"))
                 .contentType(JSON)
                 .body(newTodo)
                 .post("todo")
@@ -80,7 +112,8 @@ class TodoControllerTest {
         Todo newTodo = new Todo("Neuer Title", "Neu Beschreibung", true);
         when(todoService.toogleTodoEntry(id)).thenReturn(newTodo);
 
-        RestAssuredMockMvc.given()
+        given()
+                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar"))
                 .contentType(JSON)
                 .body(id)
                 .put("toogleTodo")
