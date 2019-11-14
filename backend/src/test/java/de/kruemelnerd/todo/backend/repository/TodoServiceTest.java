@@ -1,6 +1,6 @@
 package de.kruemelnerd.todo.backend.repository;
 
-import de.kruemelnerd.todo.backend.domain.Todo;
+import de.kruemelnerd.todo.backend.model.Todo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

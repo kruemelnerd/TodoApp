@@ -1,6 +1,6 @@
 package de.kruemelnerd.todo.backend.controller;
 
-import de.kruemelnerd.todo.backend.domain.Todo;
+import de.kruemelnerd.todo.backend.model.Todo;
 import de.kruemelnerd.todo.backend.repository.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

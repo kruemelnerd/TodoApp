@@ -1,4 +1,4 @@
-package de.kruemelnerd.todo.backend.domain;
+package de.kruemelnerd.todo.backend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
