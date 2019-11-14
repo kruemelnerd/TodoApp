@@ -1,6 +1,6 @@
 package de.kruemelnerd.todo.backend.controller;
 
-import de.kruemelnerd.todo.backend.domain.Todo;
+import de.kruemelnerd.todo.backend.model.Todo;
 import de.kruemelnerd.todo.backend.repository.TodoService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.AfterEach;
