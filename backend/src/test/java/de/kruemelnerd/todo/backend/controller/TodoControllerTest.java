@@ -58,7 +58,7 @@ class TodoControllerTest {
     public void secured_api_should_give_http_200_when_authorized() {
 
         given()
-                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar"))
+                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test"))
                 .when()
                 .get("/todo/")
                 .then()
@@ -76,7 +76,7 @@ class TodoControllerTest {
         when(todoService.getAllTodos()).thenReturn(allTodo);
 
         given()
-                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar"))
+                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test"))
                 .when()
                 .get("todo")
                 .then()
@@ -93,7 +93,7 @@ class TodoControllerTest {
         when(todoService.saveTodo(any(Todo.class))).thenReturn(newTodo);
 
         given()
-                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar"))
+                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test"))
                 .contentType(JSON)
                 .body(newTodo)
                 .post("todo")
@@ -113,7 +113,7 @@ class TodoControllerTest {
         when(todoService.toogleTodoEntry(id)).thenReturn(newTodo);
 
         given()
-                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar"))
+                .auth().with(SecurityMockMvcRequestPostProcessors.httpBasic("test", "test"))
                 .contentType(JSON)
                 .body(id)
                 .put("toogleTodo")
