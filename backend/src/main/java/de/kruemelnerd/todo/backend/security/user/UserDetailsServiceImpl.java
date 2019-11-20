@@ -1,11 +1,14 @@
-package de.kruemelnerd.todo.backend.repository;
+package de.kruemelnerd.todo.backend.security.user;
 
 import de.kruemelnerd.todo.backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -17,6 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("Username '" + username + "' was not found in the Database");
         }
-        return new TodoUserPrincipal(user);
+        return UserDetailsImpl.build(user);
     }
 }
