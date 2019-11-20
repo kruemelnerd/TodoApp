@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 
 import java.util.List;
 
@@ -20,17 +22,20 @@ public class TodoController {
     TodoService todoService;
 
     @GetMapping("todo")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<List<Todo>> getAllTodos() {
         return new ResponseEntity<>(todoService.getAllTodos(), HttpStatus.OK);
     }
 
     @PostMapping("todo")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<Todo> saveNewTodo(@RequestBody Todo todo) {
         return new ResponseEntity<>(todoService.saveTodo(todo), HttpStatus.CREATED);
     }
 
     @PutMapping("toogleTodo")
-    ResponseEntity<Todo> toogleMap(@RequestBody long id){
+    @PreAuthorize("hasRole('ADMIN')")
+    ResponseEntity<Todo> toogleMap(@RequestBody long id) {
         return new ResponseEntity<>(todoService.toogleTodoEntry(id), HttpStatus.OK);
     }
 }

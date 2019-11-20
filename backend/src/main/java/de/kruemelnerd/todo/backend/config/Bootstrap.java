@@ -1,7 +1,10 @@
 package de.kruemelnerd.todo.backend.config;
 
+import de.kruemelnerd.todo.backend.model.ERole;
+import de.kruemelnerd.todo.backend.model.Role;
 import de.kruemelnerd.todo.backend.model.User;
-import de.kruemelnerd.todo.backend.repository.UserRepository;
+import de.kruemelnerd.todo.backend.repository.RoleRepository;
+import de.kruemelnerd.todo.backend.security.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -11,6 +14,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 class Bootstrap implements ApplicationListener<ApplicationReadyEvent> {
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -28,6 +34,15 @@ class Bootstrap implements ApplicationListener<ApplicationReadyEvent> {
             user.setUsername("test");
             user.setPassword(this.passwordEncoder.encode("test"));
             this.userRepository.save(user);
+        }
+
+        if(this.roleRepository.count() == 0){
+            final Role user_role = new Role(ERole.ROLE_USER);
+            this.roleRepository.save(user_role);
+            final Role admin_role = new Role(ERole.ROLE_ADMIN);
+            this.roleRepository.save(admin_role);
+            final Role mod_role = new Role(ERole.ROLE_MODERATOR);
+            this.roleRepository.save(mod_role);
         }
     }
 
