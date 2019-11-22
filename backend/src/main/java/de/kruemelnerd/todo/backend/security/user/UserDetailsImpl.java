@@ -1,5 +1,6 @@
 package de.kruemelnerd.todo.backend.security.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.kruemelnerd.todo.backend.model.Role;
 import de.kruemelnerd.todo.backend.model.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,17 +13,25 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
-    private User user;
+
+    private Long id;
+
+    private String username;
+
+    @JsonIgnore
+    private String password;
+
     private Collection authorities;
 
 
-    public long getId() { return this.user.getId(); }
+    public long getId() { return this.id; }
 
     public UserDetailsImpl(Long id, String username,  String password,
                            Collection<? extends GrantedAuthority> authorities) {
-        this.user.setId(id);
-        this.user.setUsername(username);
-        this.user.setPassword(password);
+        this.id = id;
+        this.username = username;
+
+        this.password = password;
         this.authorities = authorities;
     }
 
@@ -46,12 +55,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return this.username;
     }
 
     @Override

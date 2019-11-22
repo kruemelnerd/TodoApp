@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -15,11 +16,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username);
-        if(user == null){
-            throw new UsernameNotFoundException("Username '" + username + "' was not found in the Database");
-        }
+        User user = userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Username '" + username + "' was not found in the Database"));
+
         return UserDetailsImpl.build(user);
     }
 }
