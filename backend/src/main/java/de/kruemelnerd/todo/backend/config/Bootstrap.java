@@ -34,23 +34,27 @@ class Bootstrap implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        if (this.userRepository.count() == 0) {
-            final User user = new User();
-            user.setUsername("test");
-            user.setPassword(this.passwordEncoder.encode("test"));
-            Set<Role> roles = Stream.of(new Role(ERole.ROLE_USER)).collect(Collectors.toSet());
-            user.setRoles(roles);
-            this.userRepository.save(user);
-        }
-
+        Role user_role = new Role(ERole.ROLE_USER);
         if(this.roleRepository.count() == 0){
-            final Role user_role = new Role(ERole.ROLE_USER);
-            this.roleRepository.save(user_role);
+
+            user_role = this.roleRepository.save(user_role);
             final Role admin_role = new Role(ERole.ROLE_ADMIN);
             this.roleRepository.save(admin_role);
             final Role mod_role = new Role(ERole.ROLE_MODERATOR);
             this.roleRepository.save(mod_role);
         }
+
+        if (this.userRepository.count() == 0) {
+            final User user = new User();
+            user.setUsername("test");
+            user.setPassword(this.passwordEncoder.encode("test"));
+            Set<Role> roles = Stream.of(user_role).collect(Collectors.toSet());
+
+            user.setRoles(roles);
+            this.userRepository.save(user);
+        }
+
+
     }
 
 }
