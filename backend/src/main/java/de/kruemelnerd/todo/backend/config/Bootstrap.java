@@ -1,6 +1,5 @@
 package de.kruemelnerd.todo.backend.config;
 
-import com.sun.tools.classfile.Opcode;
 import de.kruemelnerd.todo.backend.model.ERole;
 import de.kruemelnerd.todo.backend.model.Role;
 import de.kruemelnerd.todo.backend.model.User;
