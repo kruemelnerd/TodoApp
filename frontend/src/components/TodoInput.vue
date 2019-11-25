@@ -19,6 +19,7 @@
 <script>
     /* eslint-disable */
     import axios from 'axios'
+    import authHeader from '../services/auth-header'
 
     export default {
   data: function () {
@@ -47,7 +48,7 @@
             title: this.todo.title.trim(),
             description: desc,
             done: false
-        })
+        },{ headers: authHeader() })
             .then(response => {
               this.showSuccess = true
               this.$emit('create-new-todo', response.data)

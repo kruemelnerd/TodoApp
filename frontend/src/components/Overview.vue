@@ -26,6 +26,7 @@
     /* eslint-disable */
     import axios from 'axios'
     import TodoInput from './TodoInput'
+    import authHeader from '../services/auth-header'
 
     export default {
   name: 'overview',
@@ -49,7 +50,7 @@
           'Content-Type': 'application/json;charset=UTF-8'
         }
       }
-      axios.put('toogleTodo', e.id, axiosConfig)
+      axios.put('toogleTodo', e.id, { headers: authHeader()  })
         .then(response => {
           e.done = response.data.done
         })
@@ -58,7 +59,7 @@
         })
     },
     showAllTodos () {
-      axios.get('todo')
+      axios.get('todo', { headers: authHeader() })
         .then(response => {
           this.response = response.data
           console.log(response.data)
