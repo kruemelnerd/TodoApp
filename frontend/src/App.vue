@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <a href="#" class="navbar-brand">ToDo-App</a>
       <div class="navbar-nav mr-auto">
-        <li class="nav-item">register
+        <li class="nav-item">
           <a href="/#/overview" class="nav-link">Display All Todos</a>
         </li>
       </div>
