@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -25,13 +27,16 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@WithMockUser(username="test",roles={"USER","ADMIN"})
 class TodoControllerTest {
+
 
     @MockBean
     TodoService todoService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+
 
     @BeforeEach
     void init() {
@@ -46,12 +51,13 @@ class TodoControllerTest {
 
 
     @Test
-    void secured_api_should_react_with_default(){
-    given()
-    .when()
-    .get("/todo/")
-    .then()
-            .statusCode(HttpStatus.UNAUTHORIZED.value());
+    @WithAnonymousUser
+    void secured_api_should_react_with_default() {
+        given()
+                .when()
+                .get("/todo/")
+                .then()
+                .statusCode(HttpStatus.UNAUTHORIZED.value());
     }
 
     @Test
@@ -107,7 +113,7 @@ class TodoControllerTest {
     }
 
     @Test
-    void finishAOldTodo(){
+    void finishAOldTodo() {
         long id = 4;
         Todo newTodo = new Todo("Neuer Title", "Neu Beschreibung", true);
         when(todoService.toogleTodoEntry(id)).thenReturn(newTodo);
