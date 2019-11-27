@@ -56,7 +56,7 @@
 
 <script>
     /* eslint-disable */
-    import User from '../models/user';
+    import User from '../models/User';
 
     export default {
         name: 'register',
